@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="section_array">
+        <item>"Europe"</item>
+        <item>"US"</item>
+        <item>"Asia"</item>
+        <item>"Australia"</item>
+        <item>"Africa"</item>
+        <item>"Middle East"</item>
+        <item>"Football</item>
+        <item>"Cricket</item>
+        <item>Rugby Union</item>
+        <item>"F1"</item>
+        <item>"Tennis</item>
+        <item>"Golf"</item>
+        <item>"Cycling"</item>
+        <item>"Boxing"</item>
+        <item>"Racing</item>
+        <item>"Rugby League"</item>
+        <item>"Film"</item>
+        <item>"Music"</item>
+        <item>"Games"</item>
+        <item>"Books"</item>
+        <item>"Stage"</item>
+        <item>"Classical"</item>
+        <item>"Economics"</item>
+        <item>"Banking"</item>
+        <item>"Retail"</item>
+        <item>"Markets"</item>
+        <item>"Property"</item>
+        <item>"Savings"</item>
+        <item>"Pensions"</item>
+        <item>"Careers"</item>
+        <item>"Food"</item>
+        <item>"Recipes"</item>
+        <item>"Health"</item>
+        <item>"Fitness"</item>
+        <item>"Love"</item>
+        <item>"Sex"</item>
+        <item>"Family"</item>
+        <item>"Women"</item>
+        <item>"Climate Change"</item>
+        <item>"Wildlife"</item>
+        <item>"Energy"</item>
+        <item>"Pollution"</item>
+        <item>"Travel"</item>
+        <item>"Tech"</item>
+        <item>"Science"</item>
+
+    </string-array>
+    
+
+
+
+</resources>

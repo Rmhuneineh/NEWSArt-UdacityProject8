@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Settings">
+
+    <EditTextPreference
+        android:defaultValue="@string/listSizeDefault"
+        android:inputType="number"
+        android:key="@string/listSize"
+        android:selectAllOnFocus="true"
+        android:title="@string/listSize">
+    </EditTextPreference>
+
+    <ListPreference
+        android:defaultValue="@string/section"
+        android:entries="@array/section_array"
+        android:entryValues="@array/section_array"
+        android:key="@string/section"
+        android:title="Sections">
+    </ListPreference>
+
+</PreferenceScreen>

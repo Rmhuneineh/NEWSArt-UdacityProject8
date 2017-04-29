@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">NEWS Art</string>
+
+    <string name="section">Section</string>
+    <string name="world">"World"</string>
+    <string name="listSize">"List Size (1-200)"</string>
+    <string name="listSizeDefault">10</string>
+
+</resources>
