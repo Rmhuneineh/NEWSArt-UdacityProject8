@@ -22,18 +22,24 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
     @NonNull
     @Override
     public View getView(int position, View counterView, ViewGroup parent){
-        View listItemView = counterView;
-        if(listItemView == null){
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
+        if(counterView == null){
+            counterView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
         Article currentArticle = getItem(position);
 
-        TextView sectionTextView = (TextView) listItemView.findViewById(R.id.section);
-        sectionTextView.setText(currentArticle.getSection());
+        ViewHolder holder = new ViewHolder();
 
-        TextView titleTextView = (TextView) listItemView.findViewById((R.id.title));
-        titleTextView.setText(currentArticle.getTitle());
+        holder.sectionTextView = (TextView) counterView.findViewById(R.id.section);
+        holder.sectionTextView.setText(currentArticle.getSection());
 
-        return listItemView;
+        holder.titleTextView = (TextView) counterView.findViewById((R.id.title));
+        holder.titleTextView.setText(currentArticle.getTitle());
+
+        return counterView;
+    }
+
+    static class ViewHolder{
+        TextView sectionTextView;
+        TextView titleTextView;
     }
 }
