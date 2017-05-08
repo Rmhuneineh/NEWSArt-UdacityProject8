@@ -12,16 +12,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.view.View.GONE;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Article>> {
 
@@ -32,7 +34,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
     private TextView myEmptyState;
-    ArticleAdapter mAdapter;
+
+    private RecyclerView mRecyclerView;
+    private ArticleRecyclerAdapter mRecyclerAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,6 +66,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         myEmptyState = (TextView) findViewById(R.id.error_text_view);
 
+        mRecyclerView = (RecyclerView) findViewById(R.id.list_view);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
         ConnectivityManager cm =
                 (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -69,36 +78,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 activeNetwork.isConnectedOrConnecting();
 
         if(isConnected){
-            ListView articleListView = (ListView) findViewById(R.id.list_view);
-            articleListView.setEmptyView(myEmptyState);
-            mAdapter = new ArticleAdapter(this, new ArrayList<Article>());
-            articleListView.setAdapter(mAdapter);
-            articleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    // Find the current earthquake that was clicked on
-                    Article currentEarthquake = mAdapter.getItem(position);
+            myEmptyState.setVisibility(View.GONE);
 
-                    // Convert the String URL into a URI object (to pass into the Intent constructor)
-                    Uri articleUri = Uri.parse(currentEarthquake.getUrl());
-
-                    // Create a new intent to view the earthquake URI
-                    Intent websiteIntent = new Intent(Intent.ACTION_VIEW, articleUri);
-
-                    // Send the intent to launch a new activity
-                    startActivity(websiteIntent);
-                }
-            });
+            mRecyclerAdapter = new ArticleRecyclerAdapter(MainActivity.this, new ArrayList<Article>());
+            mRecyclerView.setAdapter(mRecyclerAdapter);
             LoaderManager loaderManager = getLoaderManager();
             loaderManager.initLoader(1, null, MainActivity.this);
 
         } else {
             ProgressBar loadingSpinner = (ProgressBar) findViewById(R.id.progress_bar);
-            loadingSpinner.setVisibility(View.GONE);
+            loadingSpinner.setVisibility(GONE);
 
             myEmptyState.setText("No internet connection.");
+            myEmptyState.setVisibility(View.VISIBLE);
         }
-
     }
 
     public static class ArticleLoader extends AsyncTaskLoader<List<Article>> {
@@ -162,20 +155,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<List<Article>> loader, List<Article> articles) {
         ProgressBar loadingSpinner = (ProgressBar) findViewById(R.id.progress_bar);
-        loadingSpinner.setVisibility(View.GONE);
+        loadingSpinner.setVisibility(GONE);
 
-        myEmptyState.setText("No Articles Found.");
-        mAdapter.clear();
+
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mRecyclerAdapter = new ArticleRecyclerAdapter(MainActivity.this, new ArrayList<Article>());
 
         if(articles != null && !articles.isEmpty()){
-            mAdapter.addAll(articles);
+
+            mRecyclerAdapter = new ArticleRecyclerAdapter(MainActivity.this, articles);
+            mRecyclerView.setAdapter(mRecyclerAdapter);
         }
 
     }
 
     @Override
     public void onLoaderReset(Loader<List<Article>> loader) {
-        mAdapter.clear();
-
+        
+        mRecyclerAdapter = new ArticleRecyclerAdapter(MainActivity.this, new ArrayList<Article>());
     }
 }
