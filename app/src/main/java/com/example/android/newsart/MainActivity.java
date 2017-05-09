@@ -94,6 +94,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
     }
 
+    public void startWebView(String url) {
+        Intent webIntent = new Intent(MainActivity.this, WebViewActivity.class);
+        webIntent.setData(Uri.parse(url));
+        startActivity(webIntent);
+    }
+
     public static class ArticleLoader extends AsyncTaskLoader<List<Article>> {
 
         /** Tag for log messages */
