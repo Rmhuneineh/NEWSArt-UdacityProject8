@@ -19,12 +19,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingsActivity"
+        <activity
+            android:name=".SettingsActivity"
             android:label="Sections">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.newsart.MainActivity"/>
-            </activity>
+                android:value="com.example.android.newsart.MainActivity" />
+        </activity>
+        <activity android:name=".WebViewActivity"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".WebViewActivity" />
+
+        </activity>
     </application>
 
 </manifest>
